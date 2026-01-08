@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laboratorio</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+       /* Letras del navbar más finas */
+      .navbar-nav .nav-link {
+        font-weight: 300;
+        font-size: 1.3rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      /* Más separación entre opciones */
+      .navbar-nav .nav-item {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+       .navbar-transparent {
+    background: rgba(50, 149, 154, 0.589); /* transparencia */
+    backdrop-filter: blur(8px);       /* efecto vidrio */
+    -webkit-backdrop-filter: blur(8px);
+  }
+  /* Hover para links del navbar */
+.navbar-nav .nav-link {
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+/* Color al pasar el mouse */
+.navbar-nav .nav-link:hover {
+  color: #9df2eb!important;        /* color hover (podés cambiarlo) */
+  border-bottom: 2px solid #9df2eb; /* línea sutil debajo */
+}
+
+  .btn-contacto {
+  background-color: #00C7C5; /* azul Bootstrap */
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-contacto:hover {
+  background-color: #084298; /* azul más oscuro */
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+
+   .hero-section {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Desktop */
+.hero-img {
+  width: 100%;
+  height: auto;       /* CLAVE */
+  display: block;
+}
+
+.seccion-contacto {
+  background-color: rgba(2, 38, 1, 0.288);
+  padding: 80px 20px;
+  color: #090000;
+}
+
+.logo-contacto {
+  max-width: 220px;
+  margin: 0 auto;
+  display: block;
+}
+
+.texto-contacto {
+  text-align: center;
+}
+
+.texto-contacto h2 {
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.texto-contacto p {
+  font-weight: 300;
+  line-height: 1.7;
+}
+.img-sala {
+  margin-bottom: 4rem;
+}
+
+ .whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9999;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whatsapp-float img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+#btn-top {
+  position: fixed;
+  bottom: 90px;          /* ajustado para convivir con WhatsApp */
+  right: 20px;
+  z-index: 9999;
+
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+
+  background-color: #5e5d5d;
+  color: #fff;
+  cursor: pointer;
+
+  display: none;
+  transition: all 0.3s ease;
+}
+
+#btn-top:hover {
+  background-color: #444;
+  transform: translateY(-3px);
+}
+
+#btn-top .chevron {
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 1;
+}
+/* Tablet */
+@media (max-width: 991px) {
+  .hero-img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .hero-img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+    </style>
+  </head>
+  <!-- BOTÓN WHATSAPP -->
+<a href="https://wa.me/+5491131115511" 
+   class="whatsapp-float" 
+   target="_blank" 
+   aria-label="WhatsApp">
+  <img src="img/whatsapp.png" alt="WhatsApp">
+</a>
+
+<!-- BOTÓN VOLVER ARRIBA -->
+<button id="btn-top" title="Volver arriba">
+  <span class="chevron">˄</span>
+</button>
+
+<!-- MODAL CONTACTO -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content rounded-4">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Contacto Gempre</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <form id="contactForm">
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Nombre</label>
+              <input type="text" name="nombre" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Teléfono</label>
+              <input type="text" name="telefono" class="form-control">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Motivo de consulta</label>
+              <select name="motivo" class="form-select">
+                <option>Embarazo</option>
+                <option>Screening neonatal</option>
+                <option>Diagnóstico genético</option>
+                <option>Otro</option>
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Mensaje</label>
+              <textarea name="mensaje" rows="4" class="form-control" required></textarea>
+            </div>
+          </div>
+
+          <div class="text-end mt-4">
+            <button type="submit" class="btn btn-contacto">Enviar consulta</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+  (function(){
+    emailjs.init("TU_PUBLIC_KEY"); // ← pegá tu key
+  })();
+
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    emailjs.sendForm(
+      "TU_SERVICE_ID",
+      "TU_TEMPLATE_ID",
+      this
+    )
+    .then(() => {
+      alert("Mensaje enviado correctamente 💙");
+      this.reset();
+      bootstrap.Modal.getInstance(document.getElementById('contactModal')).hide();
+    })
+    .catch(() => {
+      alert("Error al enviar el mensaje");
+    });
+  });
+</script>
+
+  <body>
+ <nav class="navbar navbar-expand-lg navbar-transparent fixed-top">
+  <div class="container-fluid">
+
+    <!-- LOGO QUE LLEVA A index.html -->
+    <a class="navbar-brand" href="index.html">
+      <img src="img/Logo-Gempre.png" alt="Logo del laboratorio" width="120">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav" aria-controls="navbarNav" 
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link active text-white" href="pagina1.html">Genética preventiva</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white" href="pagina2.html">Diagnóstico genético</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white" href="screen.html">GempreScreen neonatal</a>
+        </li>
+
+        <li class="nav-item">
+         <button class="btn btn-contacto ms-3" data-bs-toggle="modal" data-bs-target="#contactModal">
+  Contacto
+</button>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
+<!-- HERO -->
+<section>
+  <img src="img/screen.png" class="hero-img" alt="Hero">
+</section>
+<section class="py-5">
+  <div class="container">
+    <div class="text-center mx-auto" style="max-width: 900px;">
+
+      <h1 class="mb-3">GempreScreen Neonatal</h1>
+
+      <h2 class="fs-5 fw-normal mb-4">
+        El estudio genético avanzado de screening neonatal es un examen genético capaz
+        de identificar 321 enfermedades graves, de inicio silencioso (silentes) y
+        tratables, desarrolladas en la primera infancia.
+      </h2>
+
+      <p class="text-muted">
+        Muchas de estas enfermedades pueden generar secuelas irreversibles si el
+        tratamiento no se instaura rápidamente, por lo que contar con esta información
+        durante el primer mes del nacimiento, tiene importantes beneficios sobre la
+        salud del neonato.
+        <br><br>
+        Este estudio es el complemento ideal de la pesquisa neonatal bioquímica que
+        existe por Ley en la Argentina. Se realiza mediante un estudio genético (no
+        bioquímico) y amplía esta pesquisa de 7 enfermedades hasta un total de 321
+        condiciones, todas tratables y con mejor respuesta cuanto antes se comience
+        dicho tratamiento.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="py-5">
+  <div class="container">
+    <div class="row g-5">
+
+      <div class="col-6">
+  <div class="accordion" id="accordionLeft">
+
+    <!-- ITEM 1 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingLeft1">
+        <button class="accordion-button" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseLeft1"
+          aria-expanded="true">
+          Tamizaje ampliado
+        </button>
+      </h2>
+      <div id="collapseLeft1" class="accordion-collapse collapse show"
+        data-bs-parent="#accordionLeft">
+        <div class="accordion-body">
+          <!-- 👇 TU LISTA ORIGINAL, NO SE TOCA -->
+          <ul>
+            <li>Anemia Falciforme, Talasemia y Otras Hemoglobinopatías – HBB</li>
+            <li>Deficiencia de Biotinidasa – BTD</li>
+            <li>Fenilcetonuria – PAH</li>
+            <li>Fibrosis Quística – CFTR</li>
+            <li>Hiperplasia Adrenal Congénita – CYP21A2</li>
+            <li>Acidemia Glutárica – GCDH</li>
+            <li>Acidemia Isovalérica – IVD</li>
+            <li>Acidemia Propiónica – PCCA</li>
+            <li>Acidemia Propiónica – PCCB</li>
+            <li>Aciduria Alfa-Metilacetoacética – ACAT1</li>
+            <li>Aciduria Argininosuccínica – ASL</li>
+            <li>Aciduria Metilmalónica – CD320</li>
+            <li>Aciduria Metilmalónica – MMAA</li>
+            <li>Aciduria Metilmalónica – MMA</li>
+            <li>Aciduria Metilmalónica – MUT</li>
+            <li>Argininemia – ARG1</li>
+            <li>Citrulinemia – ASS1</li>
+            <li>Tirosinemia – FAH</li>
+            <li>Tirosinemia – HPD</li>
+            <li>Tirosinemia – TAT</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEM 2 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingLeft2">
+        <button class="accordion-button collapsed" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseLeft2">
+          Hipotiroidismos congénitos
+        </button>
+      </h2>
+      <div id="collapseLeft2" class="accordion-collapse collapse"
+        data-bs-parent="#accordionLeft">
+        <div class="accordion-body">
+          <li>Coreoatetosis, Hipotiroidismo Congénito y Disfunción Pulmonar – NKX2-1</li>
+          <li>Disgenesia Tiroidea – TUBB1</li>
+          <li>Dismorfogénesis de Tiroides – DUOX2</li>
+          <li>Dismorfogénesis de Tiroides – DUOXA2</li>
+          <li>Dismorfogénesis de Tiroides – IYD</li>
+          <li>Dismorfogénesis de Tiroides – SLC5A5</li>
+          <li>Dismorfogénesis de Tiroides – TG</li>
+          <li>Dismorfogénesis de Tiroides – TPO</li>
+          <li>Hipotiroidismo Congénito – FOXE1</li>
+          <li>Hipotiroidismo Congénito – SLC26A7</li>
+          <li>Síndrome de Pendred – SLC26A4</li>
+          <li>Ectopia Tiroidea – CDCA8</li>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEM 3 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingLeft3">
+        <button class="accordion-button collapsed" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseLeft3">
+          Inmunodeficiencias combinadas severas y agamaglobulinemias
+        </button>
+      </h2>
+      <div id="collapseLeft3" class="accordion-collapse collapse"
+        data-bs-parent="#accordionLeft">
+        <div class="accordion-body">
+          <li>Inmunodeficiencia Combinada grave – SCID – ADA</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – BCL10</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – CARD11</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – CD3D</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – CD3E</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – CD3G</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – CTPS1</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – DCLRE1C</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – DOCK2</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – IKBKB</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – IL2RA</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – IL2RG</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – IL7R</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – JAK3</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – LAT</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – LCK</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – MALT1</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – MAP3K14</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – NHEJ1</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – PRKDC</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – PTPRC</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – RAC2</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – RAG1</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – RAG2</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – RASGRP1</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – MTFRC</li>
+          <li>Inmunodeficiencia Combinada grave – SCID – Hipoglicemia – HYOU1</li>
+          <li>Agamaglobulinemia – BLNK</li>
+          <li>Agamaglobulinemia – CD79A</li>
+          <li>Agamaglobulinemia – CD79B</li>
+          <li>Agamaglobulinemia – IGLL1</li>
+          <li>Agamaglobulinemia – LRRC8A</li>
+          <li>Agamaglobulinemia – PIK3R1</li>
+          <li>Agamaglobulinemia Ligada al X – BTK</li>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEM 4 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingLeft4">
+        <button class="accordion-button collapsed" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseLeft4">
+         Sordera
+        </button>
+      </h2>
+      <div id="collapseLeft4" class="accordion-collapse collapse"
+        data-bs-parent="#accordionLeft">
+        <div class="accordion-body">
+         <li>Sordera – GJB2</li>
+         <li>Sordera – GJB6</li>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITEM 5 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingLeft5">
+        <button class="accordion-button collapsed" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseLeft5">
+          Enfermedades neurológicas
+        </button>
+      </h2>
+      <div id="collapseLeft5" class="accordion-collapse collapse"
+        data-bs-parent="#accordionLeft">
+        <div class="accordion-body">
+        <li>Atrofia Muscular Espinal – SMN1</li>
+        <li>Crisis Encefalomiopáticas Metabólicas Recurrentes, Rabdomiólisis, Arritmias Cardiacas y Neurodegeneración – TANGO2</li>
+        <li>Distrofia Muscular de Duchenne – DMD</li>
+        <li>Miopatía y Metabolismo Anormal de lípidos (Deficiencia Múltiple de Deshidrogenasas) – FLAD1</li>
+        <li>Neuropatía y Atrofia Óptica – PDXK</li>
+        <li>ENFERMEDADES INMUNOLÓGICAS</li>
+        <li>Deficiencia de Linfocitos T – ZAP70</li>
+        <li>Deficiencia de Linfocitos T, Alopecia Congénita y Distrofia Ungueal – FOXN1</li>
+        <li>Deficiencia de Mieloperoxidasa – MPO</li>
+        <li>Deficiencia de Purina Nucleósido Fosforilasa – PNP</li>
+        <li>Inmunodisregulación, Poliendocrinopatía y Enteropatía (IPEX) – FOXP3</li>
+        <li>Disgenesia Reticular – AK</li>
+        <li>Enfermedad Granulomatosa Crónica – CYBA</li>
+        <li>Enfermedad Granulomatosa Crónica – CYBB</li>
+        <li>Enfermedad Granulomatosa Crónica – NCF2</li>
+        <li>Enfermedad Granulomatosa Crónica – NCF4</li>
+        <li>Inmunodeficiencia de Linfocitos T – CD247</li>
+        <li>Inmunodeficiencia de Linfocitos T – CORO1A</li>
+        <li>Inmunodeficiencia de Linfocitos T – ORAI1</li>
+        <li>Inmunodeficiencia e Hiper-IgM – AICDA</li>
+        <li>Inmunodeficiencia e Hiper-IgM – CD40</li>
+        <li>Inmunodeficiencia e Hiper-IgM – CD40LG</li>
+        <li>Inmunodeficiencia e Hiper-IgM – UNG</li>
+        <li>Inmunodeficiencia, Defecto del Magnesio, Infección por Epstein Barr y Neoplasia – MAGT1</li>
+        <li>Infecciones Piógenas Recurrentes – MYD88</li>
+        <li>Linfedema primario, Mielodisplasia, Inmunodeficiencia y Leucemia Mieloide Aguda – GATA2</li>
+        <li>Linfohistiocitosis Hemofagocítica – PRF1</li>
+        <li>Linfohistiocitosis Hemofagocítica – STX11</li>
+        <li>Linfohistiocitosis Hemofagocítica – STXBP2</li>
+        <li>Linfohistiocitosis Hemofagocítica – UNC13D</li>
+        <li>Neutropenia Congénita – CXCR2</li>
+        <li>Neutropenia Congénita Grave – ELANE</li>
+        <li>Neutropenia Congénita Grave – G6PC3</li>
+        <li>Neutropenia Congénita Grave – GFI1</li>
+        <li>Neutropenia Congénita Grave – HAX1</li>
+        <li>Neutropenia Congénita Grave – JAGN1</li>
+        <li>Neutropenia Congénita Grave – VPS45</li>
+         <li>Síndrome de Falla Medular – DNAJC21</li>
+          <li>Síndrome de Shwachman-Diamond – EFL1</li>
+           <li>Síndrome de Shwachman-Diamond – SBDS</li>
+            <li>Síndrome de Shwachman-Diamond – SRP54</li>
+             <li>Síndrome de Wiskott-Aldrich – WAS</li>
+              <li>Síndrome de Wiskott-Aldrich – WIPF1</li>
+               <li>Síndrome del linfocito desnudo – CIITA</li>
+                <li>Síndrome del linfocito desnudo – RFX5</li>
+                <li>Síndrome del linfocito desnudo – RFXANK</li>
+                <li>Síndrome del linfocito desnudo – RFXAP</li>
+                <li>Síndrome del linfocito desnudo – TAP1</li>
+                <li>Síndrome del linfocito desnudo – TAP2</li>
+                <li>Síndrome del linfocito desnudo – TAPBP</li>
+                <li>Síndrome Linfoproliferativo – SH2D1A</li>
+                <li>Síndrome Linfoproliferativo – XIAP</li>
+                <li>Síndrome WHIM – CXCR4</li>
+                <li>Susceptibilidad a Infección Micobacteriana – IFNGR2</li>
+                <li>Susceptibilidad a Infección Micobacteriana – IFNGR1</li>
+                <li>Susceptibilidad a Infección Micobacteriana – IL12B</li>
+                <li>Susceptibilidad a Infección Micobacteriana – IL12RB1</li>
+                <li>Susceptibilidad a Infección Micobacteriana – IRF8</li>
+                <li>Susceptibilidad a Infección Micobacteriana – RORC</li>
+                <li>Susceptibilidad a Infección Micobacteriana – STAT1</li>
+                <li>ENFERMEDADES HEMATOLÓGICAS</li>
+                <li>Afibrinogenemia Congénita – FGA</li>
+                <li>Deficiencia Combinada de Factores de Coagulación Vitamina K-dependientes – GGCX</li>
+                <li>Deficiencia Combinada de Factores de Coagulación Vitamina K-dependientes – VKORC1</li>
+                <li>Hemofilia A – F8</li>
+                <li>Hemofilia B – F9</li>
+                <li>Púrpura Trombocitopénica Trombótica Congénita – ADAMTS13</li>
+                <li>Trombocitopenia Amegacariocítica Congénita – MPL</li>
+                <li>DEFICIENCIAS DEL METABOLISMO DE VITAMINAS Y MINERALES</li>
+                <li>Abetalipoproteinemia – MTTP</li>
+                <li>Acrodermatitis Enteropática (Deficiencia de Zinc) – SLC39A4</li>
+                <li>Deficiencia de Cofactor de Molibdeno – MOCS1</li>
+                <li>Deficiencia de Transcobalamina II – TCN2</li>
+                <li>Deficiencia de Transporte de Folato Cerebral – FOLR1</li>
+                <li>Deficiencia de Vitamina E – TTPA</li>
+                <li>Enfermedad de Menkes – ATP7A</li>
+                <li>Enfermedad de Wilson – ATP7B</li>
+                <li>Epilepsia Dependiente de Piridoxina – PLPBP</li>
+                <li>Epilepsia Dependiente de Piridoxina – ALDH7A1</li>
+                <li>Hipomagnesemia – TRPM6</li>
+                <li>Hipomagnesemia – CLDN16</li>
+                <li>Hipomagnesemia – CLDN19</li>
+                <li>Hipomagnesemia – CNNM2</li>
+                <li>Síndrome de Brown-Vialetto-Van Laere – SLC52A2</li>
+                <li>Síndrome de Brown-Vialetto-Van Laere – SLC52A3</li>
+                <li>Defecto del Metabolismo de la Tiamina – SLC25A19</li>
+                <li>Defecto del Metabolismo de la Tiamina – SLC19A3</li>
+                <li>Defecto del Metabolismo de la Tiamina – TPK1</li>
+              
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+    <div class="col-6">
+  <div class="accordion" id="accordionRight">
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingRight1">
+        <button class="accordion-button" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseRight1"
+          aria-expanded="true">
+          Enfermedades renales
+        </button>
+      </h2>
+      <div id="collapseRight1" class="accordion-collapse collapse show"
+        data-bs-parent="#accordionRight">
+        <div class="accordion-body">
+      <li>Acidosis Tubular Renal Distal – ATP6V0A4</li>
+       <li>Acidosis Tubular Renal Distal y Sordera Neurosensorial Progresiva – ATP6V1B1</li>
+        <li>Diabetes Insípida Nefrogénica – AQP2</li>
+         <li>Diabetes Insípida Nefrogénica – AVPR2</li>
+          <li>Síndrome de Bartter – BSND</li>
+           <li>Síndrome de Bartter – CLCNKA</li>
+            <li>Síndrome de Bartter – CLCNKB</li>
+             <li>Síndrome de Bartter – KCNJ1</li>
+              <li>Síndrome de Bartter – SLC12A1</li>
+               <li>Síndrome de Fechtner – MYH9</li>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingRight2">
+        <button class="accordion-button collapsed" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseRight2">
+          Enfermedades endocrinas
+        </button>
+      </h2>
+      <div id="collapseRight2" class="accordion-collapse collapse"
+        data-bs-parent="#accordionRight">
+        <div class="accordion-body">
+         <li>Deficiencia Combinada de Hormonas Hipofisiarias – LHX3</li>
+          <li>Deficiencia Combinada de Hormonas Hipofisiarias – LHX4</li>
+           <li>Deficiencia Combinada de Hormonas Hipofisiarias – OTX2</li>
+            <li>Deficiencia Combinada de Hormonas Hipofisiarias – POU1F1</li>
+             <li>Deficiencia Combinada de Hormonas Hipofisiarias – PROP1</li>
+              <li>Deficiencia Combinada de Hormonas Hipofisiarias – SOX3</li>
+               <li>Deficiencia de Corticosterona Metiloxidasa – CYP11B2</li>
+                <li>Deficiencia de Dihidrolipoamida Deshidrogenasa – DLD</li>
+                 <li>Deficiencia de Glucocorticoides – MC2R</li>
+                  <li>Deficiencia de Glucocorticoides – MRAP</li>
+                   <li>Deficiencia de Glucocorticoides – NNT</li>
+                    <li>Deficiencia del Transportador de Monocarboxilato 1 e Hipoglicemia Hiperinsulinémica – SLC16A1</li>
+                     <li>Deficiencia de TRH – TRH</li>
+                      <li>Diabetes Mellitus Neonatal – INS</li>
+                       <li>Diabetes e Hipotiroidismo Neonatales – GLIS3</li>
+                        <li>Displasia Septo óptica – HESX1</li>
+                         <li>Hiperinsulinismo, Hipopituitarismo y Anomalías Endodérmicas y Craneofaciales – FOXA2</li>
+                          <li>Hiperparatiroidismo Neonatal Grave – CASR</li>
+                           <li>Hiperplasia Adrenal Congénita – CYP11B1</li>
+                            <li>Hiperplasia Adrenal Congénita – CYP17A1</li>
+                            <li>Hiperplasia Adrenal Congénita – HSD3B2</li>
+                            <li>Hiperplasia Adrenal Congénita Lipoide – STAR</li>
+                            <li>Hipoglicemia Hiperinsulinémica – GLUD1</li>
+                            <li>Hipoglicemia Hiperinsulinémica – INSR</li>
+                            <li>Hipoglicemia Hiperinsulinémica y Diabetes Neonatal – ABCC8</li>
+                            <li>Hipoglicemia Hiperinsulinémica y Diabetes Neonatal – GCK</li>
+                            <li>Hipoglicemia Hiperinsulinémica y Diabetes Neonatal – KCNJ11</li>
+                            <li>Hipoplasia Adrenal Congénita – NR0B1</li>
+                            <li>Hipotiroidismo Central Congénito – IRS4</li>
+                            <li>Hipotiroidismo Central y Sordera – TBL1X</li>
+                            <li>Hipotiroidismo Congénito – IGSF1</li>
+                            <li>Hipotiroidismo Congénito – NKX2-5</li>
+                            <li>HHipotiroidismo Congénito – PAX8</li>
+                            <li>Hipotiroidismo Congénito – THRA</li>
+                            <li>Hipotiroidismo Congénito – TRHR</li>
+                            <li>Hipotiroidismo Congénito – TSHB</li>
+                            <li>Hipotiroidismo Congénito – TSHR</li>
+                            <li>Pseudohipoaldosteronismo – SCNN1A</li>
+                            <li>Pseudohipoaldosteronismo – SCNN1B</li>
+                            <li>Pseudohipoaldosteronismo – SCNN1G</li>
+                            <li>Raquitismo por Deficiencia de Hidroxilación de Vitamina D – CYP27B1</li>
+                            <li>Raquitismo por Deficiencia de Hidroxilación de Vitamina D – CYP2R1</li>
+                            <li>Raquitismo Dependiente de Vitamina D – VDR</li>
+                            <li>Raquitismo Hipofosfatémico – PHEX</li>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingRight3">
+        <button class="accordion-button collapsed" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseRight3">
+          Errores innatos del metabolismo
+        </button>
+      </h2>
+      <div id="collapseRight3" class="accordion-collapse collapse"
+        data-bs-parent="#accordionRight">
+        <div class="accordion-body">
+        <li>Adrenoleucodistrofia – ABCD1</li>
+        <li>Cardiomiopatía y Degeneración progresiva de la Retina – SLC6A6</li>
+        <li>Cistinosis Nefropática – CTNS</li>
+        <li>Cistinuria – SLC7A9</li>
+        <li>Defecto de Síntesis de Ácidos Biliares – AKR1D1</li>
+        <li>Defecto de Síntesis de Ácidos Biliares – AMACR</li>
+        <li>Defecto de Síntesis de Ácidos Biliares – CYP7A1</li>
+        <li>Defecto de Síntesis de Ácidos Biliares – CYP7B1</li>
+        <li>Defecto de Síntesis de Ácidos Biliares – HSD3B7</li>
+        <li>Defecto de Síntesis de Ácidos Biliares – SLC27A5</li>
+        <li>Deficiencia de Creatina Cerebral – GAMT</li>
+        <li>Deficiencia de Creatina Cerebral – GATM</li>
+        <li>Deficiencia de Fructosa-1,6-Bisfosfatasa – FBP1</li>
+        <li>Deficiencia de Holocarboxilasa Sintetasa – HLCS</li>
+        <li>Deficiencia de L-aminoácido aromático decarboxilasa – DDC</li>
+        <li>Deficiencia de Lipasa Ácida Lisosomal – LIPA</li>
+        <li>Deficiencia de Piridoxamina 5-Primo-Fosfato Oxidasa – PNPO</li>
+        <li>Deficiencia de Succinil-CoA-3-Oxoácido-CoA Transferasa – OXCT1</li>
+        <li>Deficiencia de Sacarasa-Isomaltasa – SI</li>
+        <li>Distonía Dopa-Sensible – SPR</li>
+        <li>Defecto Congénito de Glucosilación Tipo Ib – MPI</li>
+        <li>Defecto Congénito de Glucosilación Tipo It – PGM1</li>
+        <li>Defecto Congénito de Glucosilación Tipo Iz – CAD</li>
+        <li>Enfermedad de Gaucher – GBA</li>
+        <li>Enfermedad de Segawa – TH</li>
+        <li>Encefalopatía Etilmalónica – ETHE1</li>
+        <li>Encefalopatía Relacionada al transporte de Malato-Aspartato – GOT2</li>
+        <li>Glucogenosis Tipo 0A – GYS2</li>
+        <li>Glucogenosis Tipo IA – G6PC</li>
+        <li>Glucogenosis Tipo IB/IC – SLC37A4</li>
+        <li>Glucogenosis Tipo III – AGL</li>
+        <li>Glucogenosis Tipo IV – GBE1</li>
+        <li>Glucogenosis Tipo IXA1 – PHKA2</li>
+        <li>Glucogenosis Tipo IXB – PHKB</li>
+        <li>Glucogenosis Tipo VI – PYGL</li>
+        <li>Hipercolanemia – BAAT</li>
+        <li>Hiperfosfatasia – ALPL</li>
+        <li>Homocistinuria – CBS</li>
+        <li>Homocistinuria – MTHFR</li>
+        <li>Leucodistrofia Metacromática – ARSA</li>
+        <li>Lipofuscinosis Ceroidea Tipo 2 (CLN2) – TPP1</li>
+        <li>Malabsorción Hereditaria de Folato – SLC46A1</li>
+        <li>Mucopolisacaridosis Tipo I (Síndrome de Hurler y/o Scheie) – IDUA</li>
+        <li>Mucopolisacaridosis Tipo II – IDS</li>
+        <li>Mucopolisacaridosis Tipo IVA – GALNS</li>
+        <li>Mucopolisacaridosis Tipo VI – ARSB</li>
+        <li>Mucopolisacaridosis Tipo VII – GUSB</li>
+        <li>Quilomicronemia – APOA5</li>
+        <li>Quilomicronemia – APOC2</li>
+        <li>Quilomicronemia – GPIHBP1</li>
+        <li>Quilomicronemia – LMF1</li>
+        <li>Quilomicronemia – LPL</li>
+        <li>Síndrome de Anemia Megaloblástica Sensible a Tiamina – SLC19A2</li>
+         <li>Deficiencia de GLUT1 – SLC2A1</li>
+          <li>Glucogenosis Tipo XI – Fanconi-Bickel – SLC2A2</li>
+           <li>Síndrome MIRAGE – SAMD9</li>
+            <li>Xantomatosis Cerebrotendinosa – CYP27A1</li>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingRight4">
+        <button class="accordion-button collapsed" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseRight4">
+          Neoplasias
+        </button>
+      </h2>
+      <div id="collapseRight4" class="accordion-collapse collapse"
+        data-bs-parent="#accordionRight">
+        <div class="accordion-body">
+        <li>Retinoblastoma – RB1</li>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingRight5">
+        <button class="accordion-button collapsed" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseRight5">
+          Enfermedades hepáticas y gastrointestinales
+        </button>
+      </h2>
+      <div id="collapseRight5" class="accordion-collapse collapse"
+        data-bs-parent="#accordionRight">
+        <div class="accordion-body">
+        <li>Colestasis y sordera – USP53</li>
+        <li>Colestasis Intrahepática Familiar Progresiva – ABCB4</li>
+        <li>Colestasis Intrahepática Familiar Progresiva – ATP8B1</li>
+        <li>Colestasis Intrahepática Familiar Progresiva – TJP2</li>
+        <li>Colestasis Intrahepática Familiar Progresiva – ABCB11</li>
+        <li>Deficiencia Congénita de Lactasa – LCT</li>
+        <li>Diarrea Congénita – DGAT1</li>
+        <li>Diarrea Congénita – NEUROG3</li>
+        <li>Diarrea Congénita – SLC26A3</li>
+        <li>Intolerancia Hereditaria a Fructosa – ALDOB</li>
+        <li>Malabsorción de Glucosa y Galactosa – SLC5A1</li>
+        <li>Síndrome de Crigler-Najjar – UGT1A1</li>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</section>
+<div class="container my-5">
+  <p class="text-center mx-auto" style="max-width: 900px;">
+    Todas estas condiciones pueden aparecer en el niño aún sin tener antecedentes
+    familiares de enfermedades genéticas y el diagnóstico suele hacerse varios meses
+    después del nacimiento, excepto cuando se realizan las pesquisas adecuadas como en
+    el presente estudio.
+    <br><br>
+    La mayoría de estos estudios arrojan un resultado <b>NEGATIVO</b>, brindando mayor
+    tranquilidad a su familia.
+  </p>
+</div>
+
+<section class="seccion-contacto">
+  <div class="container my-5 d-flex justify-content-center">
+
+    <div class="row align-items-center justify-content-center" style="max-width: 900px;">
+
+      <!-- COLUMNA LOGO -->
+      <div class="col-md-4 text-center mb-4 mb-md-0">
+        <img src="img/Logo-Gempre.png" class="img-fluid" alt="Gempre">
+      </div>
+
+      <!-- COLUMNA TEXTO -->
+      <div class="col-md-8 texto-contacto text-start">
+
+        <h2>Turnos</h2>
+
+        <p>
+          Viamonte 1621, 9no Piso, CABA<br>
+          administracion@gempre.com.ar<br>
+          Tel: +54 11 3111-5511<br>
+          Lunes a Viernes, de 09:30 a 16:30 hs
+        </p>
+
+      <!-- INSTAGRAM -->
+<!-- INSTAGRAM -->
+<div class="mb-3">
+  <a href="https://www.instagram.com/gempregenomica"
+     target="_blank"
+     class="d-inline-flex align-items-center text-decoration-none">
+
+    <img src="img/insta.png"
+         alt="Instagram Gempre"
+         style="max-width: 40px;"
+         class="me-2">
+
+    <span style="color: #000;">gempregenomica</span>
+  </a>
+</div>
+
+
+        <!-- BOTÓN MAIL -->
+        <a href="mailto:administracion@gempre.com.ar"
+           class="btn btn-outline-light">
+          Escribinos
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="text-center py-4" style="background-color:#000;">
+  <p class="mb-0 text-white-50 small">
+    © 2025 Gempre Genética Médica. Desarrollado por
+    <a href="https://www.daliamultimedia.com"
+       target="_blank"
+       class="text-white text-decoration-none fw-semibold">
+      Dalia Multimedia
+    </a>
+  </p>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+</html>

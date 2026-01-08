@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laboratorio</title>
+
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+           /* Letras del navbar más finas */
+      .navbar-nav .nav-link {
+        font-weight: 300;
+        font-size: 1.3rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      /* Más separación entre opciones */
+      .navbar-nav .nav-item {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+       .navbar-transparent {
+    background: rgba(50, 149, 154, 0.589); /* transparencia */
+    backdrop-filter: blur(8px);       /* efecto vidrio */
+    -webkit-backdrop-filter: blur(8px);
+  }
+  /* Hover para links del navbar */
+.navbar-nav .nav-link {
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+/* Color al pasar el mouse */
+.navbar-nav .nav-link:hover {
+  color: #9df2eb!important;        /* color hover (podés cambiarlo) */
+  border-bottom: 2px solid #9df2eb; /* línea sutil debajo */
+}
+
+  .btn-contacto {
+  background-color: #00C7C5; /* azul Bootstrap */
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-contacto:hover {
+  background-color: #084298; /* azul más oscuro */
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+
+   .hero-section {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Desktop */
+.hero-img {
+  width: 100%;
+  height: auto;       /* CLAVE */
+  display: block;
+}
+
+.section-celeste {
+  background-color: #8efffdf8;
+  border-top: 1px solid #d0ecf2;
+  border-bottom: 1px solid #d0ecf2;
+}
+
+.section-info {
+  border-bottom: 1px solid #e9f3f5; /* separación sutil */
+}
+
+.section-info {
+  border-bottom: 1px solid #e9f3f5;
+}
+
+.img-texto-wrap img {
+  max-height: 420px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.section-info h1 {
+  font-size: 2rem;
+}
+
+.section-info p,
+.section-info li {
+  line-height: 1.6;
+}
+
+.seccion-contacto {
+  background-color: rgba(2, 38, 1, 0.288);
+  padding: 80px 20px;
+  color: #090000;
+}
+
+.logo-contacto {
+  max-width: 220px;
+  margin: 0 auto;
+  display: block;
+}
+
+.texto-contacto {
+  text-align: center;
+}
+
+.texto-contacto h2 {
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.texto-contacto p {
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+ .whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9999;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whatsapp-float img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+#btn-top {
+  position: fixed;
+  bottom: 90px;          /* ajustado para convivir con WhatsApp */
+  right: 20px;
+  z-index: 9999;
+
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+
+  background-color: #5e5d5d;
+  color: #fff;
+  cursor: pointer;
+
+  display: none;
+  transition: all 0.3s ease;
+}
+
+#btn-top:hover {
+  background-color: #444;
+  transform: translateY(-3px);
+}
+
+#btn-top .chevron {
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 1;
+}
+/* Tablet */
+@media (max-width: 991px) {
+  .hero-img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .hero-img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+
+    </style>
+
+  </head>
+  <!-- BOTÓN WHATSAPP -->
+<a href="https://wa.me/+5491131115511" 
+   class="whatsapp-float" 
+   target="_blank" 
+   aria-label="WhatsApp">
+  <img src="img/whatsapp.png" alt="WhatsApp">
+</a>
+
+<!-- BOTÓN VOLVER ARRIBA -->
+<button id="btn-top" title="Volver arriba">
+  <span class="chevron">˄</span>
+</button>
+
+  <!-- MODAL CONTACTO -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content rounded-4">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Contacto Gempre</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <form id="contactForm">
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Nombre</label>
+              <input type="text" name="nombre" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Teléfono</label>
+              <input type="text" name="telefono" class="form-control">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Motivo de consulta</label>
+              <select name="motivo" class="form-select">
+                <option>Embarazo</option>
+                <option>Screening neonatal</option>
+                <option>Diagnóstico genético</option>
+                <option>Otro</option>
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Mensaje</label>
+              <textarea name="mensaje" rows="4" class="form-control" required></textarea>
+            </div>
+          </div>
+
+          <div class="text-end mt-4">
+            <button type="submit" class="btn btn-contacto">Enviar consulta</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+  (function(){
+    emailjs.init("TU_PUBLIC_KEY"); // ← pegá tu key
+  })();
+
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    emailjs.sendForm(
+      "TU_SERVICE_ID",
+      "TU_TEMPLATE_ID",
+      this
+    )
+    .then(() => {
+      alert("Mensaje enviado correctamente 💙");
+      this.reset();
+      bootstrap.Modal.getInstance(document.getElementById('contactModal')).hide();
+    })
+    .catch(() => {
+      alert("Error al enviar el mensaje");
+    });
+  });
+</script>
+
+  <body>
+
+    <!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-transparent fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">
+      <img src="img/Logo-Gempre.png" width="120" alt="Gempre">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+     <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+    <li class="nav-item">
+  <a class="nav-link text-white" href="pagina1.html">
+    Genética preventiva
+  </a>
+</li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="pagina2.html">Diagnóstico genético</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="screen.html">GempreScreen neonatal</a>
+        </li>
+       <li class="nav-item">
+  <button class="btn btn-contacto ms-3" data-bs-toggle="modal" data-bs-target="#contactModal">
+  Contacto
+</button>
+</li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- HERO -->
+<section>
+  <img src="img/pagina2.png" class="hero-img" alt="Hero">
+</section>
+
+<section class="py-5">
+  <div class="container">
+
+    <div class="row align-items-center g-5">
+
+      <!-- COLUMNA TEXTO -->
+      <div class="col-md-6">
+        <h1 class="mb-3">Diagnóstico genético avanzado</h1>
+
+        <p>
+          Nuestro laboratorio ofrece estudios genéticos de alta complejidad orientados
+          a la prevención, el diagnóstico temprano y el acompañamiento clínico de
+          pacientes y familias.
+        </p>
+
+        <p>
+          Trabajamos con tecnología de última generación y un equipo interdisciplinario
+          comprometido con la calidad científica y humana del diagnóstico.
+        </p>
+      </div>
+<!-- COLUMNA IMAGEN -->
+<div class="col-md-6 d-flex align-items-center justify-content-center">
+  <div class="img-texto-wrap">
+    <img src="img/Adn.jpg"
+         class="img-fluid rounded"
+         alt="Laboratorio genético">
+  </div>
+</div>
+
+  </div>
+</section>
+
+<section class="py-5 section-celeste">
+  <div class="container">
+    <div class="text-center mx-auto" style="max-width: 900px;">
+
+      <h1 class="mb-3">Embarazo</h1>
+
+      <h2 class="fs-5 fw-normal mb-4">
+        Durante el embarazo se llevan a cabo estudios de ADN Fetal en Sangre Materna y según su complejidad, se dividen en tres grandes áreas:
+      </h2>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="py-5 section-info">
+  <div class="container">
+    <div class="row align-items-center g-5">
+
+      <!-- IMAGEN -->
+      <div class="col-md-6 order-md-1 d-flex align-items-center justify-content-center">
+        <div class="img-texto-wrap">
+          <img src="img/adn-2.jpg" class="img-fluid rounded" alt="Laboratorio genético">
+        </div>
+      </div>
+
+      <!-- TEXTO -->
+      <div class="col-md-6 order-md-2">
+        <h1 class="mb-4">ADN Fetal Básico</h1>
+
+        <p class="mb-2">
+          Trisomías autosómicas frecuentes, cuyo riesgo aumenta con la edad materna:
+        </p>
+
+        <ul class="mb-4">
+          <li>Trisomía 21 (Síndrome de Down).</li>
+          <li>Trisomía 18 (Síndrome de Edwards).</li>
+          <li>Trisomía 13 (Síndrome de Patau).</li>
+        </ul>
+
+        <p class="mb-2">
+          Alteraciones de los cromosomas sexuales:
+        </p>
+
+        <ul>
+          <li>Monosomía X (Síndrome de Turner).</li>
+          <li>Síndrome XXY (Síndrome de Klinefelter).</li>
+          <li>Síndrome XYY (Síndrome de Jacob´s).</li>
+          <li>Otras anomalías cromosómicas sexuales.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="py-5 section-info">
+  <div class="container">
+    <div class="row align-items-center g-5">
+
+      <!-- TEXTO -->
+      <div class="col-md-6">
+        <h1 class="mb-4">ADN Fetal con Microdeleciones</h1>
+
+        <p class="mb-2">
+          A las anomalías anteriormente descritas, se le suma la evaluación de las siguientes microdeleciones (regiones perdidas en cromosomas seleccionados, causantes de síndromes con discapacidad):
+        </p>
+
+        <ul class="mb-4">
+          <li>Deleción 1p36 (Síndrome de Deleción 1p36).</li>
+          <li>Deleción 4p16.3 (Síndrome de Wolf-Hirschhorn).</li>
+          <li>Deleción 5p15.2 (Síndrome de Cri Du Chat).</li>
+          <li>Deleción 15q11.2 (Síndrome de Angelman / Prader Willi).</li>
+          <li>Deleción 22q11.2 (Síndrome de Di George).</li>
+        </ul>
+      </div>
+
+      <!-- IMAGEN -->
+      <div class="col-md-6 d-flex align-items-center justify-content-center">
+        <div class="img-texto-wrap">
+          <img src="img/Fetal.jpg" class="img-fluid rounded" alt="Laboratorio genético">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="py-5 section-info">
+  <div class="container">
+    <div class="row align-items-center g-5">
+
+      <!-- IMAGEN -->
+      <div class="col-md-6 order-md-1 d-flex align-items-center justify-content-center">
+        <div class="img-texto-wrap">
+          <img src="img/el-epigenoma-puede-considerarse-como-la-parte-en-TXYZGTABPBAVRE2YPBG7PNYFOE.avif"
+               class="img-fluid rounded"
+               alt="Laboratorio genético">
+        </div>
+      </div>
+
+      <!-- TEXTO -->
+      <div class="col-md-6 order-md-2">
+        <h1 class="mb-4">ADN Fetal de tipo GENOME (Genoma Completo)</h1>
+
+        <p class="mb-2">
+          <strong>ADN fetal en sangre materna en su versión de mayor profundidad evalúa el Genoma Completo</strong>, es decir, todos y cada uno de los 46 cromosomas, tanto en número como en estructura.
+        </p>
+
+        <p>
+          Detecta síndromes genéticos no identificables con las versiones anteriores. En algunos casos, la significancia clínica de ciertas regiones aún no está completamente definida a nivel mundial.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <img src="img/Group 5.png" class="hero-img" alt="Hero">
+</section>
+
+<section class="seccion-contacto">
+  <div class="container my-5 d-flex justify-content-center">
+
+    <div class="row align-items-center justify-content-center" style="max-width: 900px;">
+
+      <!-- COLUMNA LOGO -->
+      <div class="col-md-4 text-center mb-4 mb-md-0">
+        <img src="img/Logo-Gempre.png" class="img-fluid" alt="Gempre">
+      </div>
+
+      <!-- COLUMNA TEXTO -->
+      <div class="col-md-8 texto-contacto text-start">
+
+        <h2>Turnos</h2>
+
+        <p>
+          Viamonte 1621, 9no Piso, CABA<br>
+          administracion@gempre.com.ar<br>
+          Tel: +54 11 3111-5511<br>
+          Lunes a Viernes, de 09:30 a 16:30 hs
+        </p>
+
+      <!-- INSTAGRAM -->
+<!-- INSTAGRAM -->
+<div class="mb-3">
+  <a href="https://www.instagram.com/gempregenomica"
+     target="_blank"
+     class="d-inline-flex align-items-center text-decoration-none">
+
+    <img src="img/insta.png"
+         alt="Instagram Gempre"
+         style="max-width: 40px;"
+         class="me-2">
+
+    <span style="color: #000;">gempregenomica</span>
+  </a>
+</div>
+
+
+        <!-- BOTÓN MAIL -->
+        <a href="mailto:administracion@gempre.com.ar"
+           class="btn btn-outline-light">
+          Escribinos
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="text-center py-4" style="background-color:#000;">
+  <p class="mb-0 text-white-50 small">
+    © 2025 Gempre Genética Médica. Desarrollado por
+    <a href="https://www.daliamultimedia.com"
+       target="_blank"
+       class="text-white text-decoration-none fw-semibold">
+      Dalia Multimedia
+    </a>
+  </p>
+</footer>
+    <!-- BOOTSTRAP JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+</html>
