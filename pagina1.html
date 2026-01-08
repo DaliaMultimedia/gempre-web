@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laboratorio</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+     html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
+}
+
+    .whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9999;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whatsapp-float img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+#btn-top {
+  position: fixed;
+  bottom: 90px;          /* ajustado para convivir con WhatsApp */
+  right: 20px;
+  z-index: 9999;
+
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+
+  background-color: #5e5d5d;
+  color: #fff;
+  cursor: pointer;
+
+  display: none;
+  transition: all 0.3s ease;
+}
+
+#btn-top:hover {
+  background-color: #444;
+  transform: translateY(-3px);
+}
+
+#btn-top .chevron {
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .whatsapp-float {
+    width: 52px;
+    height: 52px;
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+   .hero-section {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Desktop */
+.hero-img {
+  width: 100%;
+  height: auto;       /* CLAVE */
+  display: block;
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+  .hero-img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .hero-img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+    /* NAVBAR */
+    .navbar-nav .nav-link {
+      font-weight: 300;
+      font-size: 1.3rem;
+      padding: 0 1rem;
+    }
+
+    .navbar-transparent {
+      background: rgba(172, 171, 171, 0.35);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+ .navbar-transparent {
+    background: rgba(50, 149, 154, 0.589); /* transparencia */
+    backdrop-filter: blur(8px);       /* efecto vidrio */
+    -webkit-backdrop-filter: blur(8px);
+  }
+  /* Hover para links del navbar */
+.navbar-nav .nav-link {
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+/* Color al pasar el mouse */
+.navbar-nav .nav-link:hover {
+  color: #9df2eb!important;        /* color hover (podés cambiarlo) */
+  border-bottom: 2px solid #9df2eb; /* línea sutil debajo */
+}
+    
+.btn-contacto {
+  background-color: #00C7C5; /* azul Bootstrap */
+  color: #ffffff;
+  border-radius: 30px;
+  padding: 8px 24px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-contacto:hover {
+  background-color: #084298; /* azul más oscuro */
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+    /* SECCIÓN CON FONDO UNIFORME */
+    .seccion-fondo {
+
+      padding: 80px 0;
+    }
+
+    /* COLUMNAS */
+    .col-izquierda,
+    .col-derecha {
+      padding: 40px 20px;
+    }
+
+    /* LISTAS */
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    .divisor-bloque {
+  border: black;
+  height: 5px;
+  background-color: rgba(105, 146, 126, 0.538); /* línea sutil */
+  margin: 100px 0; /* MUCHO aire arriba y abajo */
+}
+.seccion-contacto {
+  background-color: rgba(2, 38, 1, 0.288);
+  padding: 80px 20px;
+  color: #090000;
+}
+
+.logo-contacto {
+  max-width: 220px;
+  margin: 0 auto;
+  display: block;
+}
+
+.texto-contacto {
+  text-align: center;
+}
+
+.texto-contacto h2 {
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.texto-contacto p {
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .seccion-contacto {
+    padding: 60px 20px;
+  }
+}
+  </style>
+
+</head>
+<!-- BOTÓN WHATSAPP -->
+<a href="https://wa.me/+5491131115511" 
+   class="whatsapp-float" 
+   target="_blank" 
+   aria-label="WhatsApp">
+  <img src="img/whatsapp.png" alt="WhatsApp">
+</a>
+
+<!-- BOTÓN VOLVER ARRIBA -->
+<button id="btn-top" title="Volver arriba">
+  <span class="chevron">˄</span>
+</button>
+
+<script>
+  const btnTop = document.getElementById("btn-top");
+
+  window.addEventListener("scroll", () => {
+    btnTop.style.display = window.scrollY > 300 ? "block" : "none";
+  });
+
+  btnTop.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
+
+<!-- MODAL CONTACTO -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content rounded-4">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Contacto Gempre</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <form id="contactForm">
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Nombre</label>
+              <input type="text" name="nombre" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Teléfono</label>
+              <input type="text" name="telefono" class="form-control">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Motivo de consulta</label>
+              <select name="motivo" class="form-select">
+                <option>Embarazo</option>
+                <option>Screening neonatal</option>
+                <option>Diagnóstico genético</option>
+                <option>Otro</option>
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Mensaje</label>
+              <textarea name="mensaje" rows="4" class="form-control" required></textarea>
+            </div>
+          </div>
+
+          <div class="text-end mt-4">
+            <button type="submit" class="btn btn-contacto">Enviar consulta</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+  (function(){
+    emailjs.init("TU_PUBLIC_KEY"); // ← pegá tu key
+  })();
+
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    emailjs.sendForm(
+      "TU_SERVICE_ID",
+      "TU_TEMPLATE_ID",
+      this
+    )
+    .then(() => {
+      alert("Mensaje enviado correctamente 💙");
+      this.reset();
+      bootstrap.Modal.getInstance(document.getElementById('contactModal')).hide();
+    })
+    .catch(() => {
+      alert("Error al enviar el mensaje");
+    });
+  });
+</script>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-transparent fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">
+      <img src="img/Logo-Gempre.png" width="120" alt="Gempre">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+     <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+    <li class="nav-item">
+  <a class="nav-link text-white" href="pagina1.html">
+    Genética preventiva
+  </a>
+</li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="pagina2.html">Diagnóstico genético</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link text-white" href="screen.html">GempreScreen neonatal</a>
+        </li>
+       <li class="nav-item">
+ <button class="btn btn-contacto ms-3" data-bs-toggle="modal" data-bs-target="#contactModal">
+  Contacto
+</button>
+</li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section>
+  <img src="img/pagina1.png" class="hero-img" alt="Hero">
+</section>
+
+<!-- CONTENIDO -->
+<section class="seccion-fondo">
+  <div class="container-fluid">
+
+    <!-- BLOQUE -->
+    <div class="row align-items-start mb-5">
+      <div class="col-4 text-center">
+        <img src="img/corazon.png" class="img-fluid" alt="">
+      </div>
+      <div class="col-8">
+        <h1>GempreScreen Cardiológico</h1>
+        <h3>Evalúa 122 genes con asociación demostrada con:</h3>
+        <ul>
+          <li>Cardiomiopatías</li>
+          <li>Arritmias cardíacas</li>
+          <li>Hipercolesterolemia familiar</li>
+          <li>Hipertensión arterial</li>
+          <li>Trastornos vasculares</li>
+          <li>Aortopatías</li>
+        </ul>
+
+        <h3>¿Qué puedo hacer si soy positivo para alguna mutación?</h3>
+        <ul>
+          <li>Controles cardiológicos y estudios específicos</li>
+          <li>Adecuación del estilo de vida</li>
+          <li>Evaluación preventiva de vasos y aorta</li>
+        </ul>
+      </div>
+    </div>
+<hr class="divisor-bloque">
+
+    <!-- BLOQUE -->
+    <div class="row align-items-start mb-5">
+      <div class="col-4 text-center">
+        <img src="img/pill.png" class="img-fluid" alt="">
+      </div>
+      <div class="col-8">
+        <h1>GempreScreen Farmacológico</h1>
+        <h3>Evalúa 80 genes con asociación demostrada a la eficacia de los fármacos:</h3>
+        <ul>
+          <li>Antidepresivos</li>
+          <li>Anticoagulantes sanguíneos</li>
+          <li>Tratamientos quimioterápicos oncológicos</li>
+          <li>Analgésicos</li>
+        </ul>Este estudio colabora para recibir la medicación más adecuada en base a nuestra genética. Permite reducir la probabilidad de que el medicamento no cause el efecto deseado o que surja un efecto adverso. 
+      </div>
+    </div>
+<hr class="divisor-bloque">
+
+    <!-- BLOQUE -->
+    <div class="row align-items-start mb-5">
+      <div class="col-4 text-center">
+        <img src="img/ear.png" class="img-fluid" alt="">
+      </div>
+      <div class="col-8">
+        <h1>GempreScreen Auditivo</h1>
+         <h3>Evalúa 15 genes asociados con predisposición a: </h3>
+        <ul>
+          <li>Sordera relacionada a la edad</li>
+          <li>Síndromes de Sordera Hereditaria</li>
+          <li>Pérdida de la audición asociada a la exposición sonora de altos decibeles</li>
+        </ul>
+Este análisis genético permite optimizar controles y realizar cambios en la cultura de exposición sonora de la persona, ya sea al escuchar música o en el ámbito laboral, cuando se detecta un gen de predisposición a trastornos auditivos. 
+        <ul>
+
+      </div>
+    </div>
+<hr class="divisor-bloque">
+
+    <!-- BLOQUE -->
+    <div class="row align-items-start mb-5">
+      <div class="col-4 text-center">
+        <img src="img/esperma.png" class="img-fluid" alt="">
+      </div>
+      <div class="col-8">
+        <h1>GempreScreen de Fertilidad</h1>
+         <h3>Evalúa 44 genes asociados con algunas causas de disminución prematura de la fertilidad en hombres y mujeres relacionados con:
+</h3>
+        <ul>
+          <li>Insuficiencia ovárica precoz</li>
+          <li>Síndrome de ovario poliquístico</li>
+          <li>Abortos espontáneos recurrentes</li>
+          <li>Oligoastenoteratozoospermia y otras alteraciones del espermograma</li>
+        </ul>
+Esto permite tomar decisiones reproductivas como la decisión de conservar ovocitos o de consultar a un centro de reproducción asistida. 
+      </div>
+    </div> 
+  </div>
+
+  <hr class="divisor-bloque">
+    <!-- BLOQUE -->
+    <div class="row align-items-start mb-5">
+      <div class="col-4 text-center">
+        <img src="img/eye.png" class="img-fluid" alt="">
+      </div>
+      <div class="col-8">
+        <h1>GempreScreen Visual:</h1>
+        <h3>Evalúa 19 genes relacionados con predisposición a la pérdida de la visión y otros trastornos, tales como: </h3>
+        <ul>
+          <li>Glaucoma. </li>
+          <li>Degeneración macular</li>
+          <li>Distrofias corneales</li>
+          <li>Respuesta adversa y ceguera posterior a una cirugía refractiva LASIK</li>
+        </ul>
+
+Este estudio ayuda a realizar cambios en el estilo de vida, los controles médicos y a evitar operaciones con técnicas que podrían causar ceguera en personas específicamente predispuestas. 
+        <ul>
+
+      </div>
+    </div>
+<hr class="divisor-bloque">
+
+    <!-- BLOQUE -->
+    <div class="row align-items-start mb-5">
+      <div class="col-4 text-center">
+        <img src="img/gen.png" class="img-fluid" alt="">
+      </div>
+      <div class="col-8">
+        <h1>GempreScreen de Anomalías Metabólicas:</h1>
+        <h3>Evalúa 14 genes asociados con: </h3>
+        <ul>
+          <li>Hipertermia maligna y otros efectos adversos a la anestesia</li>
+          <li> Hemocromatosis</li>
+          <li>Enfermedad Celíaca</li>
+          <li>Deficiencia de Ornitina Transcarbamilasa (OTC)</li>
+          <li>Enfermedad de Wilson</li>
+          <li>Deficiencia de Alfa1 antitripsina, entre otros</li>
+        </ul>Si se detecta un gen anómalo, la persona podrá prestar atención a ciertos aspectos en particular a lo largo de su vida. Por ejemplo, podrá comunicar que presenta un gen de predisposición a manifestar un efecto adverso de la anestesia para que los profesionales puedan decidir cambiar la sustancia anestésica. Ante otros genes alterados, se podrán hacer cambios en la dieta, como por ejemplo consumir menor cantidad de alimentos con alto contenido de sustancias que podrían ser nocivas debido a una metabolización defectuosa por la presencia de un gen alterado. 
+      </div>
+    </div>
+<hr class="divisor-bloque">
+
+    <!-- BLOQUE -->
+    <div class="row align-items-start mb-5">
+      <div class="col-4 text-center">
+        <img src="img/brain.png" class="img-fluid" alt="">
+      </div>
+      <div class="col-8">
+        <h1>GempreScreen Neurológico:</h1>
+
+        Evalúa 41 genes relacionados con el aumento del riesgo de desarrollar demencia, esclerosis lateral amiotrófica, Alzheimer, entre otras enfermedades neurodegenerativas.
+        <p>Permite ser proactivo con modificaciones en el estilo de vida y la dieta, para disminuir dicho riesgo. </p>
+      </div>
+    </div>
+<hr class="divisor-bloque">
+
+    <!-- BLOQUE -->
+    <div class="row align-items-start mb-5">
+      <div class="col-4 text-center">
+        <img src="img//couple.png" class="img-fluid" alt="">
+      </div>
+      <div class="col-8">
+        <h1>
+GempreScreen Reproductivo para Parejas:</h1>
+         <p>Se encuentra dentro del grupo de los llamados <b>“Paneles de Portadores de Enfermedades Recesivas”</b>, Estudios de <B>“Compatibilidad Genética”</B> o <b>“Carrier Screening”.</b> 
+
+Evalúa, generalmente mediante secuenciación completa, un total de <b>301 genes con patrón de herencia recesivo, autosómico o ligado al cromosoma X</b>, asociados con las enfermedades graves de mayor frecuencia poblacional, entre los que se pueden destacar:</p>
+        <ul>
+          <li>Fibrosis quística</li>
+          <li>Atrofia Muscular Espinal</li>
+          <li>Fragilidad del X y otras 20 patologías ligadas al X</li>
+          <li>Todas las patologías recesivas recomendadas por el Colegio Americano de Obstetras y Ginecólogos (ACOG) y por el Colegio Americano de Genética Médica (ACMG)</li>
+          <li>Un listado extendido de síndromes recesivos recomendados por las sociedades judías a nivel internacional</li>
+          <li>Síndromes genéticos recesivos letales o de presentación grave</li>
+          <li>Un listado seleccionado de patologías habitualmente halladas en los métodos de screening ampliado del recién nacido</li>
+        </ul>
+Este estudio reduce en gran medida la probabilidad de que una pareja tenga un hijo afectado por una enfermedad incurable, de las evaluadas en este estudio, que son las más graves y/o frecuentes. Esto permite tomar decisiones reproductivas como la decisión de conservar ovocitos o de consultar a un centro de reproducción asistida. 
+      </div>
+    </div>
+
+    <hr class="divisor-bloque">
+
+    <!-- BLOQUE -->
+    <div class="row align-items-start mb-5">
+      <div class="col-4 text-center">
+        <img src="img/Gempre.png" class="img-fluid" alt="">
+      </div>
+      <div class="col-8">
+        <h1>
+GempreScreen Integral:</h1>
+         <p> Evalúa una combinación de hasta 748 genes de diversas áreas de los grupos anteriormente descritos, luego de un cuidadoso asesoramiento con el paciente. Permite alcanzar la mejor relación costo-beneficio en base a los intereses de proactividad de cada familia.</p>
+
+<p>Al contratar varios servicios, el costo por test se ve sensiblemente reducido, obteniendo la posibilidad de evaluar gran número de genes de diversas áreas a un precio menor.</p>
+
+      </div>
+    </div>
+    
+  </div>
+
+<section class="seccion-contacto">
+  <div class="container my-5 d-flex justify-content-center">
+
+    <div class="row align-items-center justify-content-center" style="max-width: 900px;">
+
+      <!-- COLUMNA LOGO -->
+      <div class="col-md-4 text-center mb-4 mb-md-0">
+        <img src="img/Logo-Gempre.png" class="img-fluid" alt="Gempre">
+      </div>
+
+      <!-- COLUMNA TEXTO -->
+      <div class="col-md-8 texto-contacto text-start">
+
+        <h2>Turnos</h2>
+
+        <p>
+          Viamonte 1621, 9no Piso, CABA<br>
+          administracion@gempre.com.ar<br>
+          Tel: +54 11 3111-5511<br>
+          Lunes a Viernes, de 09:30 a 16:30 hs
+        </p>
+
+      <!-- INSTAGRAM -->
+<!-- INSTAGRAM -->
+<div class="mb-3">
+  <a href="https://www.instagram.com/gempregenomica"
+     target="_blank"
+     class="d-inline-flex align-items-center text-decoration-none">
+
+    <img src="img/insta.png"
+         alt="Instagram Gempre"
+         style="max-width: 40px;"
+         class="me-2">
+
+    <span style="color: #000;">gempregenomica</span>
+  </a>
+</div>
+
+
+        <!-- BOTÓN MAIL -->
+        <a href="mailto:administracion@gempre.com.ar"
+           class="btn btn-outline-light">
+          Escribinos
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<footer class="text-center py-4" style="background-color:#000;">
+  <p class="mb-0 text-white-50 small">
+    © 2025 Gempre Genética Médica. Desarrollado por
+    <a href="https://www.daliamultimedia.com"
+       target="_blank"
+       class="text-white text-decoration-none fw-semibold">
+      Dalia Multimedia
+    </a>
+  </p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
