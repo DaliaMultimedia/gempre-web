@@ -124,20 +124,47 @@
     height: auto;      /* Mantiene proporción */
     object-fit: cover; /* Ajusta sin deformar */
   }
- .franja-imagen {
-  width: 100%;
-  height: 30vh;           /* NO gigante */
-  max-height: 400px;      /* límite en desktop */
-  overflow: hidden;
-  margin-bottom: 80px; /* aire debajo de la imagen */
+.franja-imagen {
+  position: relative;
 }
 
-.franja-imagen img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;     /* igual que el slide */
-  display: block;
+/* Botón estilo base (desktop) */
+.btn-conocenos {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 32px;
+  border-radius: 30px;
 }
+
+
+/* 📱 Mobile y tablet */
+@media (max-width: 991px) {
+  .btn-conocenos {
+    position: relative;
+    transform: none;
+
+    display: block;        /* ocupa su propia fila */
+    width: fit-content;   /* se adapta al texto */
+    max-width: 90%;       /* evita que se desborde */
+    
+   margin: 70px auto -60px;
+   /* un poco más abajo */
+
+    padding: 14px 10px;   /* 👈 lo hace más grande */
+    font-size: 1.1rem;   /* 👈 texto más grande */
+    text-align: center;
+    white-space: nowrap; /* evita que se corte en dos líneas */
+    border-radius: 10px;
+  }
+}
+
+  .franja-imagen {
+    text-align: center;       /* ayuda al centrado */
+  }
+}
+
 @media (max-width: 768px) {
   .franja-imagen {
     height: 35vh;
@@ -503,19 +530,23 @@ Preventiva</h1>
     <span class="visually-hidden">Siguiente</span>
   </button>
 </div>
-<section class="franja-imagen position-relative">
+<section class="franja-imagen">
 
-  <img src="img/queesgempre.png" alt="Franja Gempre">
+  <img 
+    src="img/queesgempre.png" 
+    alt="Franja Gempre"
+    class="img-fluid w-100"
+  >
 
-  <!-- BOTÓN CONOCENOS -->
-  <button class="btn btn-conocenos"
-        data-bs-toggle="modal"
-        data-bs-target="#modalConocenos">
-  Nuestras instalaciones
-</button>
+  <button 
+    class="btn btn-conocenos"
+    data-bs-toggle="modal"
+    data-bs-target="#modalConocenos">
+    Nuestras instalaciones
+  </button>
 
+</section>
 
-</section class="py-5">
 
 
 
